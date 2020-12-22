@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+struct stackstr
+{
+	int t;
+	string a[100];
+	string top();
+	void push(string);
+	void pop();
+	bool empty();
+	int size();
+};
+int main()
+{
+	string s;
+	cin>>s;
+	stackstr st;
+	st.t=-1;
+	for(int i=s.size()-1;i>=0;i--)
+	{
+		if(s[i]>='0'&&s[i]<='9')
+		{
+			string a(1,s[i]);
+			st.push(a);
+		}
+		else
+		{
+			string a=st.top();
+			st.pop();
+			string b=st.top();
+			st.pop();
+			st.push('('+a+s[i]+b+')');
+		}
+	}
+	cout<<st.top()<<endl;
+}
+string stackstr::top()
+{
+	return a[t];
+}
+void stackstr::push(string x)
+{
+	t++;
+	a[t]=x;
+}
+void stackstr::pop()
+{
+	t--;
+}
+bool stackstr::empty()
+{
+	if(t==-1)
+		return true;
+	return false;
+}
+int stackstr::size()
+{
+	return t+1;
+}
